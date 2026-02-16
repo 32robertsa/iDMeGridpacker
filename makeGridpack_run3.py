@@ -48,7 +48,7 @@ def stringfy_friendly(num):
     if isinstance(num, int):
         return str(num)
     elif isinstance(num, float):
-        if int(num*100) > 0:
+        if int(num*1000) > 0:
             num = round(num, 3)
             return str(num).replace('.', 'p') if '.' in str(num) else str(num)
         else:
@@ -62,6 +62,7 @@ def create_parametrized_cards(tempDir, tag, params):
         copying template cards folder into MadGraph5_aMCatNLO/cards
         with parametrization
     '''
+
     cwd = os.getcwd()
     os.chdir('cards')
     if os.path.isdir(tag):
@@ -69,6 +70,8 @@ def create_parametrized_cards(tempDir, tag, params):
     os.system('cp -r {0} {1}'.format(tempDir, tag))
     os.chdir(tag)
     for f in os.listdir(os.getcwd()):
+        if '~' in f:
+            continue
         if 'custom' in f:
             program_customizecards(f, params)
             target = tag+'_customizecards.dat'
