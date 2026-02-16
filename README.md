@@ -2,20 +2,20 @@
 This repository contains a basic script to generate gridpacks using the tools from the [genproductions](https://github.com/cms-sw/genproductions/tree/master) repository.
 
 ## Instructions
-To set up gridpack generation, first clone the `mg265UL` branch of the `genproductions` repository:
+To set up gridpack generation, first clone the main branch of the `genproductions` repository:
 ```bash
-git clone -b mg265UL --single-branch https://github.com/cms-sw/genproductions.git
+git clone https://github.com/cms-sw/genproductions.git
 ```
 Next, move to the MadGraph area and clone *this* repository:
 ```bash
 cd genproductions/bin/MadGraph5_aMCatNLO/
-git clone https://github.com/SamBT/iDMeGridpacker.git
+git clone https://github.com/32robertsa/iDMeGridpacker.git
 cd iDMeGridpacker
 ```
 
 To generate a gridpack locally (I haven't written a way to do this on condor yet, but I should..), run the following command:
 ```bash
-python makeGridpack.py M1 DELTA [1jet]
+python makeGridpack_run3.py M1 DELTA [1jet]
 ```
 where M1 is the lighter DM mass in GeV, DELTA is the mass splitting as a fraction of M1 (e.g. use 0.1 for a 10% splitting), and the optional third argument `1jet` instructs MadGraph to only consider diagrams with 1 jet. For now, **the `1jet` mode is preferred** since it takes a much longer time to generate gridpacks with the additional option of 2 jets in the final state. We do not specify the lifetime in generating the gridpacks, as the decay is handled by Pythia.
 
@@ -23,3 +23,6 @@ This script will create a gridpack in the parent directory titled `iDMe_Mchi-XMA
 
 ## Storing gridpacks on eos
 Existing gridpacks are stored on eos at `/store/group/lpcmetx/iDMe/gridpacks/`. Please upload any new gridpacks you make! (This is also a good way to make sure you have write access to the `lpcmetx` area)
+
+## Run3
+The option to generate Run 3 gridpacks is also available now. The run 2 gridpacker is kept as `makeGridpack.py`, and a new Run 3 gridpacker (updated CM energy, operating system, etc.) is named `makeGridpack_run3.py`.
